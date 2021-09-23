@@ -31,17 +31,21 @@
         </div>
       </nav>
 
-      <h5>할일</h5>
-      <div class="input-group input-group-sm mb-3">
-        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-      </div>
-      
-      <h5>Due date</h5>
-      <div class="input-group input-group-sm mb-3">
-        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-      </div>
+      <h4 class="container mt-4"><strong>글 작성페이지</strong></h4>
 
-      <button type="button" class="btn btn-danger">submit</button>
+      <div class="container mt-3">
+        <form action="/add" method="POST">
+          <div class="form-group">
+            <label>오늘의 할일</label>
+            <input type="text" class="form-control" name="title">
+          </div>
+          <div class="form-group">
+            <label>날짜</label>
+            <input type="text" class="form-control" name="date">
+          </div>
+          <button type="submit" class="btn btn-outline-secondary">Submit</button>
+        </form>
+      </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
