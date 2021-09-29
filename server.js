@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended : true}));
 
 const MongoClient = require('mongodb').MongoClient;
+app.set('view engine', 'ejs');
 
 var db;
 MongoClient.connect('mongodb+srv://asdf1234:asdf1234@cluster0.qfyao.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', function(err, client) {
@@ -35,4 +36,11 @@ app.get('/write', function(req, res) {
 
 app.post('/add', function(req, res) {
     res.send('전송완료');
+    db.collection('post').insertOne({제목: req.body.title, 날짜: req.body.date}, function(err, result) {
+        console.log('저장완료');
+    });
+});
+
+app.get('/list', function(req, res) {
+    req.prependListener('list.ejs');
 });
