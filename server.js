@@ -26,10 +26,6 @@ app.get('/', function(req, res) {
     res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/beauty', function(req, res) {
-    res.send("뷰티뷰티뷰티풀");
-});
-
 app.get('/write', function(req, res) {
     res.sendFile(__dirname + '/write.html');
 });
@@ -39,11 +35,11 @@ app.post('/add', function(req, res) {
     db.collection('counter').findOne({name: '게시물갯수'}, function(err, result) {
         console.log(result.totalPost);
         var totalPostNum = result.totalPost;
-        console.log(req.body.title, req.body.date)
+        console.log(req.body.title, req.body.date);
 
         db.collection('post').insertOne({ _id: totalPostNum+1 , 제목: req.body.title, 날짜: req.body.date}, function(err, result) {
         console.log('저장완료');
-        db.collection('counter').updateOne({name: '게시물갯수'}, {$inc: {totalPostNum:1}}, function(err, result) {
+        db.collection('counter').updateOne({name: '게시물갯수'}, {$inc: {totalPost:1}}, function(err, result) {
             if(err) {return console.log(err)}
         })
     });
