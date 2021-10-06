@@ -52,3 +52,12 @@ app.get('/list', function(req, res) {
     res.render('list.ejs', {posts: result});
     });
 });
+
+app.delete('/delete', function(req, res) {
+    console.log(req.body);
+    req.body._id = parseInt(req.body._id);
+    db.collection('post').deleteOne(req.body, function(err, result){
+        console.log('삭제완료');
+        res.status(200).send({ message: '성공했습니다'});
+    })
+})
