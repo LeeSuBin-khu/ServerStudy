@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended : true}));
 const methodOverride = require('method-override');
-app.set('view engine', 'ejs');
+app.use(methodOverride('_method'));
 
 const MongoClient = require('mongodb').MongoClient;
 app.set('view engine', 'ejs');
@@ -82,7 +82,8 @@ app.get('/edit/:id', function(req, res) {
 });
 
 app.put('/edit', function(req, res) {
-    db.collection('post').updateOne({_id : parseInt(req.body.id) }, {$set: {제목: req.body.title, 날짜: req.body.date}}, function(err, result) {
+    db.collection('post').updateOne({_id : parseInt(req.body.id) }, {$set: {제목: req.body.title, 날짜: req.body.date}},
+     function(err, result) {
         console.log('수정완료');
         res.redirect('/list');
     })
