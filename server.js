@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended : true}));
+const methodOverride = require('method-override');
+app.set('view engine', 'ejs');
 
 const MongoClient = require('mongodb').MongoClient;
 app.set('view engine', 'ejs');
@@ -29,6 +31,7 @@ app.get('/', function(req, res) {
 app.get('/write', function(req, res) {
     res.sendFile(__dirname + '/write.html');
 });
+
 
 app.post('/add', function(req, res) {
     res.send('전송완료');
@@ -61,3 +64,26 @@ app.delete('/delete', function(req, res) {
         res.status(200).send({ message: '성공했습니다'});
     })
 })
+
+app.get('/detail/:id', function(req, res) {
+    db.collection('post').findOne({_id : parseInt(req.params.id)}, function(err, result) {
+        console.log(result);
+        res.render('detail.ejs', {data : result});
+    })
+    
+})
+
+app.get('/edit/:id', function(req, res) {
+
+    db.collection('post').findOne({_id: parseInt(req.params.id)}, function(err, result) {
+        console.log(result);
+        res.render('edit.ejs', {post : result});
+    })
+});
+
+app.put('/edit', function(req, res) {
+    db.collection('post').updateOne({_id : parseInt(req.body.id) }, {$set: {제목: req.body.title, 날짜: req.body.date}}, function(err, result) {
+        console.log('수정완료');
+        res.redirect('/list');
+    })
+});
