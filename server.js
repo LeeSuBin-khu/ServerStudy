@@ -88,3 +88,11 @@ app.put('/edit', function(req, res) {
         res.redirect('/list');
     })
 });
+
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('express-session');
+
+app.use(session({secret: 'secret', resave: true, saveUninitialized: false}));
+app.use(passport.initialize());
+app.use(passport.session());
